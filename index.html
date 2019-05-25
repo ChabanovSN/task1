@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #form {
+            width: 200px;
+            border: 1px solid black;
+            box-sizing: border-box;
+        }
+
+        input,
+        button {
+            margin: 5px 30px 15px 10px;
+        }
+
+        label {
+            font-weight: 800;
+            margin: 10px;
+
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <form id="form"><br>
+        <label for="a">Первое число:</label><br>
+        <input id="a" type="numder" step="0.1" name="a" value="0.1" /><br>
+        <label for="b">Второе число</label><br>
+        <input id="b" type="numder" step="0.1" name="b" value="0.2" /> <br>
+        <button onclick="doSum();">Сложить</button>
+    </form>
+
+    <script>
+        function doSum() {
+            var a = document.getElementById("a").value;
+            var b = document.getElementById("b").value;            
+            if ((a.length > 0 && b.length > 0) ) {  // проверка на пустые строки
+
+                var lengthMax = a.length > b.length ? lengthMax = a.length : lengthMax = b.length; // ищем число с большей длиной
+                var af = parseFloat(a);
+                var bf = parseFloat(b);
+
+                if (isNaN(bf) || isNaN(af)) { // проверка на парсинг во float
+                    alert('Введите корректные число');
+                    return;
+                }
+                else {
+                    var sum = af + bf;
+
+                    sum = sum.toFixed(lengthMax); // округляем и т.к есть вероятность получить нули после зяпятной то надо убрать их
+
+                    sum = sum.toString().split('.');  // переводим в массив и разбиваем на целие и десятичные
+
+                    if (sum.length > 1) {   // если есть десятичные отчекаем все нули до первой ненулевой цифры
+                        while (sum[1].endsWith('0')) {
+                            sum[1] = sum[1].substring(0, sum[1].length - 1);
+                        }
+                    }
+
+                    alert(`Результат: \n\n ${sum.length > 1 ? sum[0] + '.' + sum[1] : sum[0]}`); 
+                }
+            }
+            else {
+                alert('Введите корректные число');
+                
+            }
+        }   
+    </script>
+</body>
+
+</html>
